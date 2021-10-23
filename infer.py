@@ -17,9 +17,9 @@ def mask_to_3d(mask):
     return mask
 
 if __name__ == "__main__":
-    model_path = "files/resunetplusplus.h5"
+    model_path = "files/resunetplusplus2_new.h5"
     save_path = "result"
-    test_path = "new_data/kvasir_segmentation_dataset/test/"
+    test_path = "new_data/test/"
 
     image_size = 256
     batch_size = 1
@@ -58,7 +58,7 @@ if __name__ == "__main__":
         mask = mask_to_3d(mask)
         predict_mask = mask_to_3d(predict_mask)
 
-        all_images = [image * 255, sep_line, mask * 255, sep_line, predict_mask]
+        all_images = [image * 255, sep_line, mask * 255 * 255, sep_line, predict_mask]
         cv2.imwrite(f"{save_path}/{i}.png", np.concatenate(all_images, axis=1))
 
     print("Test image generation complete")

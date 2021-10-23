@@ -17,7 +17,7 @@ from metrics import dice_coef, dice_loss
 if __name__ == "__main__":
     ## Path
     file_path = "files/"
-    model_path = "files/resunetplusplus.h5"
+    model_path = "files/resunetplusplus3_new.h5"
 
     ## Create files folder
     try:
@@ -25,8 +25,8 @@ if __name__ == "__main__":
     except:
         pass
 
-    train_path = "new_data/kvasir_segmentation_dataset/train/"
-    valid_path = "new_data/kvasir_segmentation_dataset/valid/"
+    train_path = "data/train/"
+    valid_path = "data/val/"
 
     ## Training
     train_image_paths = glob(os.path.join(train_path, "images", "*"))
@@ -46,11 +46,17 @@ if __name__ == "__main__":
     ## Parameters
     image_size = 256
     batch_size = 8
-    lr = 1e-4
+    #lr = 1e-4
+    #lr = 1e-3
+    #lr = 3e-2
+    lr = 6e-2
     epochs = 200
 
-    train_steps = len(train_image_paths)//batch_size
-    valid_steps = len(valid_image_paths)//batch_size
+    #train_steps = len(train_image_paths)//batch_size
+    #valid_steps = len(valid_image_paths)//batch_size
+    
+    train_steps = 1
+    valid_steps = 1
 
     ## Generator
     train_gen = DataGen(image_size, train_image_paths, train_mask_paths, batch_size=batch_size)
@@ -72,11 +78,12 @@ if __name__ == "__main__":
     metrics = [Recall(), Precision(), dice_coef, MeanIoU(num_classes=2)]
     model.compile(loss=dice_loss, optimizer=optimizer, metrics=metrics)
 
-    csv_logger = CSVLogger(f"{file_path}unet_{batch_size}.csv", append=False)
-    checkpoint = ModelCheckpoint(model_path, verbose=1, save_best_only=True)
-    reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=5, min_lr=1e-6, verbose=1)
-    early_stopping = EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=False)
-    callbacks = [csv_logger, checkpoint, reduce_lr, early_stopping]
+    csv_logger = CSVLogger(f"{file_path}resunet3_{batch_size}.csv", append=False)
+    checkpoint = ModelCheckpoint(model_path, verbose=1, save_best_only=True, monitor='val_dice_coef', mode='max')
+    reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.3, patience=5, min_lr=1e-8, verbose=1)
+    #early_stopping = EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=False)
+    #callbacks = [csv_logger, checkpoint, reduce_lr, early_stopping]
+    callbacks = [csv_logger, checkpoint, reduce_lr]
 
     model.fit_generator(train_gen,
             validation_data=valid_gen,
