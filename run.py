@@ -49,7 +49,7 @@ if __name__ == "__main__":
     #lr = 1e-4
     #lr = 1e-3
     #lr = 3e-2
-    lr = 6e-2
+    lr = 1e-5
     epochs = 200
 
     #train_steps = len(train_image_paths)//batch_size

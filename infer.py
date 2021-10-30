@@ -17,9 +17,9 @@ def mask_to_3d(mask):
     return mask
 
 if __name__ == "__main__":
-    model_path = "files/resunetplusplus2_new.h5"
+    model_path = "files/resunetplusplus3_new.h5"
     save_path = "result"
-    test_path = "new_data/test/"
+    test_path = "data/val/"
 
     image_size = 256
     batch_size = 1
