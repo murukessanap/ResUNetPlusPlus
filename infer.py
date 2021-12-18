@@ -58,7 +58,7 @@ if __name__ == "__main__":
         mask = mask_to_3d(mask)
         predict_mask = mask_to_3d(predict_mask)
 
-        all_images = [image * 255, sep_line, mask * 255 * 255, sep_line, predict_mask]
-        cv2.imwrite(f"{save_path}/{i}.png", np.concatenate(all_images, axis=1))
+        all_images = [image * 255, sep_line, mask * 255, sep_line, predict_mask]
+        cv2.imwrite(f"{save_path}/{test_image_paths[i].split('/')[-1][:-4]}.png", np.concatenate(all_images, axis=1))
 
     print("Test image generation complete")
