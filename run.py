@@ -102,5 +102,5 @@ if __name__ == "__main__":
             validation_data=valid_gen,
             steps_per_epoch=train_steps,
             validation_steps=valid_steps,
-            epochs=epochs,
-            callbacks=callbacks)
+            epochs=epochs)
+            #callbacks=callbacks)
