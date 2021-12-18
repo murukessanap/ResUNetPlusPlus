@@ -24,7 +24,7 @@ def parse_mask(mask_path, image_size):
     else:
         mask = cv2.resize(mask, (image_size, image_size))
     mask = np.expand_dims(mask, -1)
-    mask = mask/255.0
+    #mask = mask/255.0
 
     return mask
 
