@@ -53,9 +53,9 @@ if __name__ == "__main__":
 
     ## Parameters
     image_size = 256
-    batch_size = args.batch_size
-    lr = args.lr
-    epochs = args.epochs
+    batch_size = int(args.batch_size)
+    lr = float(args.lr)
+    epochs = int(args.epochs)
     
     #batch_size = 8
     #lr = 1e-4
