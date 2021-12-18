@@ -95,7 +95,8 @@ if __name__ == "__main__":
     reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.3, patience=5, min_lr=1e-8, verbose=1)
     #early_stopping = EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=False)
     #callbacks = [csv_logger, checkpoint, reduce_lr, early_stopping]
-    callbacks = [csv_logger, checkpoint, reduce_lr]
+    #callbacks = [csv_logger, checkpoint, reduce_lr]
+    callbacks = [csv_logger, reduce_lr]
 
     model.fit_generator(train_gen,
             validation_data=valid_gen,
