@@ -1,4 +1,4 @@
-
+import argparse
 import os
 import numpy as np
 import cv2
@@ -15,6 +15,14 @@ from m_resunet import ResUnetPlusPlus
 from metrics import dice_coef, dice_loss
 
 if __name__ == "__main__":
+    
+    parser = argparse.ArgumentParser(description="ResUnetPlusPlus argument list")
+    parser.add_argument("--batch_size", help="batch size")
+    parser.add_argument("--lr", help="learning rate")
+    parser.add_argument("--epochs", help="no of epochs")
+
+    args = parser.parse_args()
+    
     ## Path
     file_path = "files/"
     model_path = "files/resunetplusplus3_new.h5"
@@ -45,18 +53,22 @@ if __name__ == "__main__":
 
     ## Parameters
     image_size = 256
-    batch_size = 8
+    batch_size = args.batch_size
+    lr = args.lr
+    epochs = args.epochs
+    
+    #batch_size = 8
     #lr = 1e-4
     #lr = 1e-3
     #lr = 3e-2
-    lr = 1e-5
-    epochs = 200
+    #lr = 1e-5
+    #epochs = 200
 
-    #train_steps = len(train_image_paths)//batch_size
-    #valid_steps = len(valid_image_paths)//batch_size
+    train_steps = len(train_image_paths)//batch_size
+    valid_steps = len(valid_image_paths)//batch_size
     
-    train_steps = 1
-    valid_steps = 1
+    #train_steps = 1
+    #valid_steps = 1
 
     ## Generator
     train_gen = DataGen(image_size, train_image_paths, train_mask_paths, batch_size=batch_size)
