@@ -146,3 +146,10 @@ if __name__ == "__main__":
         cv2.imwrite(f"{save_path}/{test_image_paths[i].split('/')[-1][:-4]}.png", np.concatenate(all_images, axis=1))
 
     print("Test image generation complete")
+    print("Average Test DICE score: ",sum(Dice)/len(Dice))
+    print("Average Test IOU score: ",sum(IOU)/len(IOU))
+    print("Average Test Precision score: ",sum(Precision)/len(Precision))
+    print("Average Test Recall score: ",sum(Recall)/len(Recall))
+    print("Average Test F1 score: ",sum(F1)/len(F1))
+    print("Average Test Specificity score: ",sum(Specificity)/len(Specificity))
+    print("Average Test Accuracy score: ",sum(Accuracy)/len(Accuracy))
