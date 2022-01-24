@@ -9,7 +9,7 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.utils import CustomObjectScope
 from data_generator import *
 from metrics import dice_coef, dice_loss
-from tf.keras import backend as K
+from tensorflow.keras import backend as K
 
 def mask_to_3d(mask):
     mask = np.squeeze(mask)
