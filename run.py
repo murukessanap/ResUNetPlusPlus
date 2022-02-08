@@ -75,7 +75,7 @@ def SSLoss(targets, inputs, gamma=GAMMA, smooth=1e-6):
     
     return LSS
 
-loss_fn_dict = {"DiceLoss":DiceLoss,"IoULoss":IoULoss,"TverskyLoss":TverskyLoss,"SSLoss":SSLoss,"binary_crossentropy","binary_crossentropy"}
+loss_fn_dict = {"DiceLoss":DiceLoss,"IoULoss":IoULoss,"TverskyLoss":TverskyLoss,"SSLoss":SSLoss,"binary_crossentropy":"binary_crossentropy"}
 
 
 if __name__ == "__main__":
