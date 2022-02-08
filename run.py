@@ -75,6 +75,8 @@ def SSLoss(targets, inputs, gamma=GAMMA, smooth=1e-6):
     
     return LSS
 
+loss_fn_dict = {"DiceLoss":DiceLoss,"IoULoss":IoULoss,"TverskyLoss":TverskyLoss,"SSLoss":SSLoss,"binary_crossentropy","binary_crossentropy"}
+
 
 if __name__ == "__main__":
     
@@ -119,7 +121,7 @@ if __name__ == "__main__":
     batch_size = int(args.batch_size)
     lr = float(args.lr)
     epochs = int(args.epochs)
-    loss_fn = args.loss_fn
+    loss_fn = loss_fn_dict[args.loss_fn]
     
     #batch_size = 8
     #lr = 1e-4
