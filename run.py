@@ -12,68 +12,68 @@ from data_generator import DataGen
 from unet import Unet
 from resunet import ResUnet
 from m_resunet import ResUnetPlusPlus
-from metrics import dice_coef, dice_loss
+from metrics import dice_coef, dice_loss, DiceLoss, IoULoss, TverskyLoss, SSLoss
 
-import keras
-import keras.backend as K
+# import keras
+# import keras.backend as K
 
 
-def DiceLoss(targets, inputs, smooth=1e-6):
+# def DiceLoss(targets, inputs, smooth=1e-6):
     
-    #flatten label and prediction tensors
-    inputs = K.flatten(inputs)
-    targets = K.flatten(targets)
-    # print(inputs.shape)
-    # print(targets.shape)
+#     #flatten label and prediction tensors
+#     inputs = K.flatten(inputs)
+#     targets = K.flatten(targets)
+#     # print(inputs.shape)
+#     # print(targets.shape)
     
-    intersection = K.sum(targets*inputs)
-    dice = (2.*intersection + smooth) / (K.sum(targets) + K.sum(inputs) + smooth)
-    return 1 - dice
+#     intersection = K.sum(targets*inputs)
+#     dice = (2.*intersection + smooth) / (K.sum(targets) + K.sum(inputs) + smooth)
+#     return 1 - dice
 
 
-def IoULoss(targets, inputs, smooth=1e-6):
+# def IoULoss(targets, inputs, smooth=1e-6):
     
-    #flatten label and prediction tensors
-    inputs = K.flatten(inputs)
-    targets = K.flatten(targets)
+#     #flatten label and prediction tensors
+#     inputs = K.flatten(inputs)
+#     targets = K.flatten(targets)
     
-    intersection = K.sum(targets*inputs)
-    total = K.sum(targets) + K.sum(inputs)
-    union = total - intersection
+#     intersection = K.sum(targets*inputs)
+#     total = K.sum(targets) + K.sum(inputs)
+#     union = total - intersection
     
-    IoU = (1.*intersection + smooth) / (union + smooth)
-    return 1 - IoU
+#     IoU = (1.*intersection + smooth) / (union + smooth)
+#     return 1 - IoU
 
 
-ALPHA = 0.5
-BETA = 0.5
-def TverskyLoss(targets, inputs, alpha=ALPHA, beta=BETA, smooth=1e-6):
+# ALPHA = 0.5
+# BETA = 0.5
+# def TverskyLoss(targets, inputs, alpha=ALPHA, beta=BETA, smooth=1e-6):
         
-    #flatten label and prediction tensors
-    inputs = K.flatten(inputs)
-    targets = K.flatten(targets)
+#     #flatten label and prediction tensors
+#     inputs = K.flatten(inputs)
+#     targets = K.flatten(targets)
     
-    #True Positives, False Positives & False Negatives
-    TP = K.sum((inputs * targets))
-    FP = K.sum(((1-targets) * inputs))
-    FN = K.sum((targets * (1-inputs)))
+#     #True Positives, False Positives & False Negatives
+#     TP = K.sum((inputs * targets))
+#     FP = K.sum(((1-targets) * inputs))
+#     FN = K.sum((targets * (1-inputs)))
     
-    Tversky = (TP + smooth) / (TP + alpha*FP + beta*FN + smooth)  
+#     Tversky = (TP + smooth) / (TP + alpha*FP + beta*FN + smooth)  
     
-    return 1 - Tversky
+#     return 1 - Tversky
 
-GAMMA = 0.5
-def SSLoss(targets, inputs, gamma=GAMMA, smooth=1e-6):
+# GAMMA = 0.5
+# def SSLoss(targets, inputs, gamma=GAMMA, smooth=1e-6):
 
-    #flatten label and prediction tensors
-    inputs = K.flatten(inputs)
-    targets = K.flatten(targets)
+#     #flatten label and prediction tensors
+#     inputs = K.flatten(inputs)
+#     targets = K.flatten(targets)
 
-    sq = K.square(targets-inputs)
-    inputs_o = 1 - inputs
-    LSS = gamma*(K.sum(sq*inputs)+smooth)/(K.sum(inputs)+smooth) + (1-gamma)*(K.sum(sq*inputs_o)+smooth)/(K.sum(inputs_o)+smooth)
+#     sq = K.square(targets-inputs)
+#     inputs_o = 1 - inputs
+#     LSS = gamma*(K.sum(sq*inputs)+smooth)/(K.sum(inputs)+smooth) + (1-gamma)*(K.sum(sq*inputs_o)+smooth)/(K.sum(inputs_o)+smooth)
     
-    return LSS
+#     return LSS
 
 loss_fn_dict = {"DiceLoss":DiceLoss,"IoULoss":IoULoss,"TverskyLoss":TverskyLoss,"SSLoss":SSLoss,"binary_crossentropy":"binary_crossentropy"}
 
