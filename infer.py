@@ -12,6 +12,8 @@ from data_generator import *
 from metrics import dice_coef, dice_loss, DiceLoss, IoULoss, TverskyLoss, SSLoss
 from tensorflow.keras import backend as K
 
+loss_fn_dict = {"DiceLoss":DiceLoss,"IoULoss":IoULoss,"TverskyLoss":TverskyLoss,"SSLoss":SSLoss} # ,"binary_crossentropy":"binary_crossentropy"}
+
 def mask_to_3d(mask):
     mask = np.squeeze(mask)
     mask = [mask, mask, mask]
@@ -103,7 +105,8 @@ if __name__ == "__main__":
         pass
 
     ## Model
-    with CustomObjectScope({'dice_loss': dice_loss, 'dice_coef': dice_coef}):
+    # with CustomObjectScope({'dice_loss': dice_loss, 'dice_coef': dice_coef}):
+    with CustomObjectScope(loss_fn_dict):    
         model = load_model(model_path)
 
     ## Test
