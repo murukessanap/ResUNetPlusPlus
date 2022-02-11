@@ -12,7 +12,7 @@ from data_generator import *
 from metrics import dice_coef, dice_loss, DiceLoss, IoULoss, TverskyLoss, SSLoss
 from tensorflow.keras import backend as K
 
-loss_fn_dict = {"DiceLoss":DiceLoss,"IoULoss":IoULoss,"TverskyLoss":TverskyLoss,"SSLoss":SSLoss} # ,"binary_crossentropy":"binary_crossentropy"}
+loss_fn_dict = {"DiceLoss":DiceLoss,"IoULoss":IoULoss,"TverskyLoss":TverskyLoss,"SSLoss":SSLoss,'dice_loss': dice_loss, 'dice_coef': dice_coef} # ,"binary_crossentropy":"binary_crossentropy"}
 
 def mask_to_3d(mask):
     mask = np.squeeze(mask)
