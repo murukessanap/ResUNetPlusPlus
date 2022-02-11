@@ -8,7 +8,8 @@ import tensorflow as tf
 from tensorflow.keras.models import load_model
 from tensorflow.keras.utils import CustomObjectScope
 from data_generator import *
-from metrics import dice_coef, dice_loss
+# from metrics import dice_coef, dice_loss
+from metrics import dice_coef, dice_loss, DiceLoss, IoULoss, TverskyLoss, SSLoss
 from tensorflow.keras import backend as K
 
 def mask_to_3d(mask):
